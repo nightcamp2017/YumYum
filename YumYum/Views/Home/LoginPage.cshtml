@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "LoginPage";
+}
+
+<h2>Login Page</h2>
+@*<label>Staff <input type="radio" name="personType" /></label>
+    <label>Customer <input type="radio" name="personType" checked /></label>
+    <br />*@
+<div id="login-div">
+    <form id="login-form">
+        <label>User Name <input type="text" required name="login" /></label>
+        <br />
+        <label>Password <input type="text" required name="login" /></label>
+    </form>
+    <input type="submit" value="Login" id="login-button" />
+    <br />
+    Not Registered? <a href="/Home/CreateUser">Click Here!</a>
+</div>
+
+<div id="create-user"></div>
+<script>
+
+    $("#login-button").click(function () {
+        var LoginData = $("form").serializeArray();
+        console.log(LoginData)
+        $.ajax({
+            url: '/Home/LoginFunction',
+            type: 'post',
+            data: LoginData,
+            @*This will have to divert to another page based on the login detail*@
+            success: function (result) {
+
+                console.log('success')
+            }
+
+
+        })
+    })
+
+
+</script>

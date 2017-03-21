@@ -14,11 +14,19 @@ namespace YumYum
     
     public partial class StaffPosition
     {
-        public int Id { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public StaffPosition()
+        {
+            this.WorkingRosters = new HashSet<WorkingRoster>();
+        }
+    
+        public int StaffPositionId { get; set; }
         public string Position { get; set; }
         public int StaffTypeId { get; set; }
     
         public virtual Staff Staff { get; set; }
         public virtual StaffType StaffType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WorkingRoster> WorkingRosters { get; set; }
     }
 }

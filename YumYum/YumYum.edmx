@@ -1,0 +1,1199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="YumYumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CustomerCode" Type="nchar" MaxLength="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Date">
+          <Key>
+            <PropertyRef Name="DateId" />
+          </Key>
+          <Property Name="DateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FoodItem">
+          <Key>
+            <PropertyRef Name="FoodItemId" />
+          </Key>
+          <Property Name="FoodItemId" Type="int" Nullable="false" />
+          <Property Name="FoodName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FoodDetail" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FoodType">
+          <Key>
+            <PropertyRef Name="FoodTypeId" />
+          </Key>
+          <Property Name="FoodTypeId" Type="int" Nullable="false" />
+          <Property Name="FoodType" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LogInDetail">
+          <Key>
+            <PropertyRef Name="LoginId" />
+          </Key>
+          <Property Name="LoginId" Type="int" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="LoginHistory" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MeatType">
+          <Key>
+            <PropertyRef Name="MeatId" />
+          </Key>
+          <Property Name="MeatId" Type="int" Nullable="false" />
+          <Property Name="MeatType" Type="nchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OnlineBooking">
+          <Key>
+            <PropertyRef Name="OnlineBookingId" />
+          </Key>
+          <Property Name="OnlineBookingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="LoginId" Type="int" />
+          <Property Name="BookingDate" Type="date" Nullable="false" />
+          <Property Name="BookingTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="NumberOfPeople" Type="int" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="400" />
+        </EntityType>
+        <EntityType Name="OnlineOrdering">
+          <Key>
+            <PropertyRef Name="OnlineOrderId" />
+          </Key>
+          <Property Name="OnlineOrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoginId" Type="int" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="OrderDetailId" Type="int" Nullable="false" />
+          <Property Name="OrderedDate" Type="date" Nullable="false" />
+          <Property Name="EstimatedPickupTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="TotalPrice" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="OrderDetailId" />
+          </Key>
+          <Property Name="OrderDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FoodItemId" Type="int" Nullable="false" />
+          <Property Name="MeatTypeId" Type="int" Nullable="false" />
+          <Property Name="SpicinessLevelId" Type="int" Nullable="false" />
+          <Property Name="PriceId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="30" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="MobileNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" />
+        </EntityType>
+        <EntityType Name="PriceList">
+          <Key>
+            <PropertyRef Name="PriceId" />
+          </Key>
+          <Property Name="PriceId" Type="int" Nullable="false" />
+          <Property Name="FoodTypeId" Type="int" Nullable="false" />
+          <Property Name="MeatId" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="3" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SpicinessLevel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="SpicinessLevel" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="StaffId" />
+          </Key>
+          <Property Name="StaffId" Type="int" Nullable="false" />
+          <Property Name="HourlyRate" Type="decimal" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="HireDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StaffPosition">
+          <Key>
+            <PropertyRef Name="StaffPositionId" />
+          </Key>
+          <Property Name="StaffPositionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Position" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="StaffTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StaffType">
+          <Key>
+            <PropertyRef Name="StaffTypeId" />
+          </Key>
+          <Property Name="StaffTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkingRoster">
+          <Key>
+            <PropertyRef Name="RosterId" />
+          </Key>
+          <Property Name="RosterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StaffId" Type="int" Nullable="false" />
+          <Property Name="PositionId" Type="int" Nullable="false" />
+          <Property Name="ShiftId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkingShift">
+          <Key>
+            <PropertyRef Name="ShiftId" />
+          </Key>
+          <Property Name="ShiftId" Type="int" Nullable="false" />
+          <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="FinishTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="TotalHour" Type="int" Nullable="false" />
+          <Property Name="DateId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Customer_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnlineBooking_LogInDetail">
+          <End Role="LogInDetail" Type="Self.LogInDetail" Multiplicity="0..1" />
+          <End Role="OnlineBooking" Type="Self.OnlineBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogInDetail">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="OnlineBooking">
+              <PropertyRef Name="LoginId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnlineBooking_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="OnlineBooking" Type="Self.OnlineBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="OnlineBooking">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnlineOrdering_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="OnlineOrdering" Type="Self.OnlineOrdering" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="OnlineOrdering">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnlineOrdering_LogInDetail">
+          <End Role="LogInDetail" Type="Self.LogInDetail" Multiplicity="1" />
+          <End Role="OnlineOrdering" Type="Self.OnlineOrdering" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogInDetail">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="OnlineOrdering">
+              <PropertyRef Name="LoginId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnlineOrdering_OrderDetail">
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="1" />
+          <End Role="OnlineOrdering" Type="Self.OnlineOrdering" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderDetail">
+              <PropertyRef Name="OrderDetailId" />
+            </Principal>
+            <Dependent Role="OnlineOrdering">
+              <PropertyRef Name="OrderDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetail_FoodItem">
+          <End Role="FoodItem" Type="Self.FoodItem" Multiplicity="1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FoodItem">
+              <PropertyRef Name="FoodItemId" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="FoodItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetail_PriceList">
+          <End Role="PriceList" Type="Self.PriceList" Multiplicity="1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceList">
+              <PropertyRef Name="PriceId" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="PriceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetail_SpicinessLevel">
+          <End Role="SpicinessLevel" Type="Self.SpicinessLevel" Multiplicity="1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SpicinessLevel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="SpicinessLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_LogInDetail1">
+          <End Role="LogInDetail" Type="Self.LogInDetail" Multiplicity="1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="LogInDetail">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PriceList_FoodType">
+          <End Role="FoodType" Type="Self.FoodType" Multiplicity="1" />
+          <End Role="PriceList" Type="Self.PriceList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FoodType">
+              <PropertyRef Name="FoodTypeId" />
+            </Principal>
+            <Dependent Role="PriceList">
+              <PropertyRef Name="FoodTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PriceList_MeatType">
+          <End Role="MeatType" Type="Self.MeatType" Multiplicity="1" />
+          <End Role="PriceList" Type="Self.PriceList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MeatType">
+              <PropertyRef Name="MeatId" />
+            </Principal>
+            <Dependent Role="PriceList">
+              <PropertyRef Name="MeatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Staff_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Staff_StaffPosition">
+          <End Role="StaffPosition" Type="Self.StaffPosition" Multiplicity="1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="StaffPosition">
+              <PropertyRef Name="StaffPositionId" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StaffPosition_StaffType">
+          <End Role="StaffType" Type="Self.StaffType" Multiplicity="1" />
+          <End Role="StaffPosition" Type="Self.StaffPosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StaffType">
+              <PropertyRef Name="StaffTypeId" />
+            </Principal>
+            <Dependent Role="StaffPosition">
+              <PropertyRef Name="StaffTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkingRoster_Staff">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="WorkingRoster" Type="Self.WorkingRoster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="StaffId" />
+            </Principal>
+            <Dependent Role="WorkingRoster">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkingRoster_StaffPosition">
+          <End Role="StaffPosition" Type="Self.StaffPosition" Multiplicity="1" />
+          <End Role="WorkingRoster" Type="Self.WorkingRoster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StaffPosition">
+              <PropertyRef Name="StaffPositionId" />
+            </Principal>
+            <Dependent Role="WorkingRoster">
+              <PropertyRef Name="PositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkingRoster_WorkingShift">
+          <End Role="WorkingShift" Type="Self.WorkingShift" Multiplicity="1" />
+          <End Role="WorkingRoster" Type="Self.WorkingRoster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkingShift">
+              <PropertyRef Name="ShiftId" />
+            </Principal>
+            <Dependent Role="WorkingRoster">
+              <PropertyRef Name="ShiftId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkingShift_WorkingDate">
+          <End Role="Date" Type="Self.Date" Multiplicity="1" />
+          <End Role="WorkingShift" Type="Self.WorkingShift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Date">
+              <PropertyRef Name="DateId" />
+            </Principal>
+            <Dependent Role="WorkingShift">
+              <PropertyRef Name="DateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="YumYumModelStoreContainer">
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Date" EntityType="Self.Date" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FoodItem" EntityType="Self.FoodItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FoodType" EntityType="Self.FoodType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LogInDetail" EntityType="Self.LogInDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MeatType" EntityType="Self.MeatType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OnlineBooking" EntityType="Self.OnlineBooking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OnlineOrdering" EntityType="Self.OnlineOrdering" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PriceList" EntityType="Self.PriceList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SpicinessLevel" EntityType="Self.SpicinessLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StaffPosition" EntityType="Self.StaffPosition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StaffType" EntityType="Self.StaffType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkingRoster" EntityType="Self.WorkingRoster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkingShift" EntityType="Self.WorkingShift" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Customer_Person" Association="Self.FK_Customer_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineBooking_LogInDetail" Association="Self.FK_OnlineBooking_LogInDetail">
+            <End Role="LogInDetail" EntitySet="LogInDetail" />
+            <End Role="OnlineBooking" EntitySet="OnlineBooking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineBooking_Person" Association="Self.FK_OnlineBooking_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="OnlineBooking" EntitySet="OnlineBooking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineOrdering_Customer" Association="Self.FK_OnlineOrdering_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="OnlineOrdering" EntitySet="OnlineOrdering" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineOrdering_LogInDetail" Association="Self.FK_OnlineOrdering_LogInDetail">
+            <End Role="LogInDetail" EntitySet="LogInDetail" />
+            <End Role="OnlineOrdering" EntitySet="OnlineOrdering" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineOrdering_OrderDetail" Association="Self.FK_OnlineOrdering_OrderDetail">
+            <End Role="OrderDetail" EntitySet="OrderDetail" />
+            <End Role="OnlineOrdering" EntitySet="OnlineOrdering" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetail_FoodItem" Association="Self.FK_OrderDetail_FoodItem">
+            <End Role="FoodItem" EntitySet="FoodItem" />
+            <End Role="OrderDetail" EntitySet="OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetail_PriceList" Association="Self.FK_OrderDetail_PriceList">
+            <End Role="PriceList" EntitySet="PriceList" />
+            <End Role="OrderDetail" EntitySet="OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetail_SpicinessLevel" Association="Self.FK_OrderDetail_SpicinessLevel">
+            <End Role="SpicinessLevel" EntitySet="SpicinessLevel" />
+            <End Role="OrderDetail" EntitySet="OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_LogInDetail1" Association="Self.FK_Person_LogInDetail1">
+            <End Role="LogInDetail" EntitySet="LogInDetail" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PriceList_FoodType" Association="Self.FK_PriceList_FoodType">
+            <End Role="FoodType" EntitySet="FoodType" />
+            <End Role="PriceList" EntitySet="PriceList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PriceList_MeatType" Association="Self.FK_PriceList_MeatType">
+            <End Role="MeatType" EntitySet="MeatType" />
+            <End Role="PriceList" EntitySet="PriceList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Staff_Person" Association="Self.FK_Staff_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Staff_StaffPosition" Association="Self.FK_Staff_StaffPosition">
+            <End Role="StaffPosition" EntitySet="StaffPosition" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StaffPosition_StaffType" Association="Self.FK_StaffPosition_StaffType">
+            <End Role="StaffType" EntitySet="StaffType" />
+            <End Role="StaffPosition" EntitySet="StaffPosition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkingRoster_Staff" Association="Self.FK_WorkingRoster_Staff">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="WorkingRoster" EntitySet="WorkingRoster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkingRoster_StaffPosition" Association="Self.FK_WorkingRoster_StaffPosition">
+            <End Role="StaffPosition" EntitySet="StaffPosition" />
+            <End Role="WorkingRoster" EntitySet="WorkingRoster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkingRoster_WorkingShift" Association="Self.FK_WorkingRoster_WorkingShift">
+            <End Role="WorkingShift" EntitySet="WorkingShift" />
+            <End Role="WorkingRoster" EntitySet="WorkingRoster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkingShift_WorkingDate" Association="Self.FK_WorkingShift_WorkingDate">
+            <End Role="Date" EntitySet="Date" />
+            <End Role="WorkingShift" EntitySet="WorkingShift" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="YumYumModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerCode" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Customer_Person" FromRole="Customer" ToRole="Person" />
+          <NavigationProperty Name="OnlineOrderings" Relationship="Self.FK_OnlineOrdering_Customer" FromRole="Customer" ToRole="OnlineOrdering" />
+        </EntityType>
+        <EntityType Name="Date">
+          <Key>
+            <PropertyRef Name="DateId" />
+          </Key>
+          <Property Name="DateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date1" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="WorkingShifts" Relationship="Self.FK_WorkingShift_WorkingDate" FromRole="Date" ToRole="WorkingShift" />
+        </EntityType>
+        <EntityType Name="FoodItem">
+          <Key>
+            <PropertyRef Name="FoodItemId" />
+          </Key>
+          <Property Name="FoodItemId" Type="Int32" Nullable="false" />
+          <Property Name="FoodName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FoodDetail" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetail_FoodItem" FromRole="FoodItem" ToRole="OrderDetail" />
+        </EntityType>
+        <EntityType Name="FoodType">
+          <Key>
+            <PropertyRef Name="FoodTypeId" />
+          </Key>
+          <Property Name="FoodTypeId" Type="Int32" Nullable="false" />
+          <Property Name="FoodType1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PriceLists" Relationship="Self.FK_PriceList_FoodType" FromRole="FoodType" ToRole="PriceList" />
+        </EntityType>
+        <EntityType Name="LogInDetail">
+          <Key>
+            <PropertyRef Name="LoginId" />
+          </Key>
+          <Property Name="LoginId" Type="Int32" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoginHistory" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="OnlineBookings" Relationship="Self.FK_OnlineBooking_LogInDetail" FromRole="LogInDetail" ToRole="OnlineBooking" />
+          <NavigationProperty Name="OnlineOrderings" Relationship="Self.FK_OnlineOrdering_LogInDetail" FromRole="LogInDetail" ToRole="OnlineOrdering" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Person_LogInDetail1" FromRole="LogInDetail" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="MeatType">
+          <Key>
+            <PropertyRef Name="MeatId" />
+          </Key>
+          <Property Name="MeatId" Type="Int32" Nullable="false" />
+          <Property Name="MeatType1" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PriceLists" Relationship="Self.FK_PriceList_MeatType" FromRole="MeatType" ToRole="PriceList" />
+        </EntityType>
+        <EntityType Name="OnlineBooking">
+          <Key>
+            <PropertyRef Name="OnlineBookingId" />
+          </Key>
+          <Property Name="OnlineBookingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <Property Name="LoginId" Type="Int32" />
+          <Property Name="BookingDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="BookingTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="NumberOfPeople" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LogInDetail" Relationship="Self.FK_OnlineBooking_LogInDetail" FromRole="OnlineBooking" ToRole="LogInDetail" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_OnlineBooking_Person" FromRole="OnlineBooking" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="OnlineOrdering">
+          <Key>
+            <PropertyRef Name="OnlineOrderId" />
+          </Key>
+          <Property Name="OnlineOrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="OrderDetailId" Type="Int32" Nullable="false" />
+          <Property Name="OrderedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EstimatedPickupTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_OnlineOrdering_Customer" FromRole="OnlineOrdering" ToRole="Customer" />
+          <NavigationProperty Name="LogInDetail" Relationship="Self.FK_OnlineOrdering_LogInDetail" FromRole="OnlineOrdering" ToRole="LogInDetail" />
+          <NavigationProperty Name="OrderDetail" Relationship="Self.FK_OnlineOrdering_OrderDetail" FromRole="OnlineOrdering" ToRole="OrderDetail" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="OrderDetailId" />
+          </Key>
+          <Property Name="OrderDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FoodItemId" Type="Int32" Nullable="false" />
+          <Property Name="MeatTypeId" Type="Int32" Nullable="false" />
+          <Property Name="SpicinessLevelId" Type="Int32" Nullable="false" />
+          <Property Name="PriceId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FoodItem" Relationship="Self.FK_OrderDetail_FoodItem" FromRole="OrderDetail" ToRole="FoodItem" />
+          <NavigationProperty Name="OnlineOrderings" Relationship="Self.FK_OnlineOrdering_OrderDetail" FromRole="OrderDetail" ToRole="OnlineOrdering" />
+          <NavigationProperty Name="PriceList" Relationship="Self.FK_OrderDetail_PriceList" FromRole="OrderDetail" ToRole="PriceList" />
+          <NavigationProperty Name="SpicinessLevel" Relationship="Self.FK_OrderDetail_SpicinessLevel" FromRole="OrderDetail" ToRole="SpicinessLevel" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address1" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address2" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Customer_Person" FromRole="Person" ToRole="Customer" />
+          <NavigationProperty Name="LogInDetail" Relationship="Self.FK_Person_LogInDetail1" FromRole="Person" ToRole="LogInDetail" />
+          <NavigationProperty Name="OnlineBookings" Relationship="Self.FK_OnlineBooking_Person" FromRole="Person" ToRole="OnlineBooking" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK_Staff_Person" FromRole="Person" ToRole="Staff" />
+        </EntityType>
+        <EntityType Name="PriceList">
+          <Key>
+            <PropertyRef Name="PriceId" />
+          </Key>
+          <Property Name="PriceId" Type="Int32" Nullable="false" />
+          <Property Name="FoodTypeId" Type="Int32" Nullable="false" />
+          <Property Name="MeatId" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
+          <NavigationProperty Name="FoodType" Relationship="Self.FK_PriceList_FoodType" FromRole="PriceList" ToRole="FoodType" />
+          <NavigationProperty Name="MeatType" Relationship="Self.FK_PriceList_MeatType" FromRole="PriceList" ToRole="MeatType" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetail_PriceList" FromRole="PriceList" ToRole="OrderDetail" />
+        </EntityType>
+        <EntityType Name="SpicinessLevel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="SpicinessLevel1" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetail_SpicinessLevel" FromRole="SpicinessLevel" ToRole="OrderDetail" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="StaffId" />
+          </Key>
+          <Property Name="StaffId" Type="Int32" Nullable="false" />
+          <Property Name="HourlyRate" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="HireDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Staff_Person" FromRole="Staff" ToRole="Person" />
+          <NavigationProperty Name="StaffPosition" Relationship="Self.FK_Staff_StaffPosition" FromRole="Staff" ToRole="StaffPosition" />
+          <NavigationProperty Name="WorkingRosters" Relationship="Self.FK_WorkingRoster_Staff" FromRole="Staff" ToRole="WorkingRoster" />
+        </EntityType>
+        <EntityType Name="StaffPosition">
+          <Key>
+            <PropertyRef Name="StaffPositionId" />
+          </Key>
+          <Property Name="StaffPositionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Position" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StaffTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK_Staff_StaffPosition" FromRole="StaffPosition" ToRole="Staff" />
+          <NavigationProperty Name="StaffType" Relationship="Self.FK_StaffPosition_StaffType" FromRole="StaffPosition" ToRole="StaffType" />
+          <NavigationProperty Name="WorkingRosters" Relationship="Self.FK_WorkingRoster_StaffPosition" FromRole="StaffPosition" ToRole="WorkingRoster" />
+        </EntityType>
+        <EntityType Name="StaffType">
+          <Key>
+            <PropertyRef Name="StaffTypeId" />
+          </Key>
+          <Property Name="StaffTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="StaffPositions" Relationship="Self.FK_StaffPosition_StaffType" FromRole="StaffType" ToRole="StaffPosition" />
+        </EntityType>
+        <EntityType Name="WorkingRoster">
+          <Key>
+            <PropertyRef Name="RosterId" />
+          </Key>
+          <Property Name="RosterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StaffId" Type="Int32" Nullable="false" />
+          <Property Name="PositionId" Type="Int32" Nullable="false" />
+          <Property Name="ShiftId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK_WorkingRoster_Staff" FromRole="WorkingRoster" ToRole="Staff" />
+          <NavigationProperty Name="StaffPosition" Relationship="Self.FK_WorkingRoster_StaffPosition" FromRole="WorkingRoster" ToRole="StaffPosition" />
+          <NavigationProperty Name="WorkingShift" Relationship="Self.FK_WorkingRoster_WorkingShift" FromRole="WorkingRoster" ToRole="WorkingShift" />
+        </EntityType>
+        <EntityType Name="WorkingShift">
+          <Key>
+            <PropertyRef Name="ShiftId" />
+          </Key>
+          <Property Name="ShiftId" Type="Int32" Nullable="false" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="FinishTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="TotalHour" Type="Int32" Nullable="false" />
+          <Property Name="DateId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Date" Relationship="Self.FK_WorkingShift_WorkingDate" FromRole="WorkingShift" ToRole="Date" />
+          <NavigationProperty Name="WorkingRosters" Relationship="Self.FK_WorkingRoster_WorkingShift" FromRole="WorkingShift" ToRole="WorkingRoster" />
+        </EntityType>
+        <Association Name="FK_Customer_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnlineOrdering_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="OnlineOrdering" Type="Self.OnlineOrdering" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="OnlineOrdering">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkingShift_WorkingDate">
+          <End Role="Date" Type="Self.Date" Multiplicity="1" />
+          <End Role="WorkingShift" Type="Self.WorkingShift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Date">
+              <PropertyRef Name="DateId" />
+            </Principal>
+            <Dependent Role="WorkingShift">
+              <PropertyRef Name="DateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetail_FoodItem">
+          <End Role="FoodItem" Type="Self.FoodItem" Multiplicity="1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FoodItem">
+              <PropertyRef Name="FoodItemId" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="FoodItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PriceList_FoodType">
+          <End Role="FoodType" Type="Self.FoodType" Multiplicity="1" />
+          <End Role="PriceList" Type="Self.PriceList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FoodType">
+              <PropertyRef Name="FoodTypeId" />
+            </Principal>
+            <Dependent Role="PriceList">
+              <PropertyRef Name="FoodTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnlineBooking_LogInDetail">
+          <End Role="LogInDetail" Type="Self.LogInDetail" Multiplicity="0..1" />
+          <End Role="OnlineBooking" Type="Self.OnlineBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogInDetail">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="OnlineBooking">
+              <PropertyRef Name="LoginId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnlineOrdering_LogInDetail">
+          <End Role="LogInDetail" Type="Self.LogInDetail" Multiplicity="1" />
+          <End Role="OnlineOrdering" Type="Self.OnlineOrdering" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogInDetail">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="OnlineOrdering">
+              <PropertyRef Name="LoginId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_LogInDetail1">
+          <End Role="LogInDetail" Type="Self.LogInDetail" Multiplicity="1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="LogInDetail">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PriceList_MeatType">
+          <End Role="MeatType" Type="Self.MeatType" Multiplicity="1" />
+          <End Role="PriceList" Type="Self.PriceList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MeatType">
+              <PropertyRef Name="MeatId" />
+            </Principal>
+            <Dependent Role="PriceList">
+              <PropertyRef Name="MeatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnlineBooking_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="OnlineBooking" Type="Self.OnlineBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="OnlineBooking">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnlineOrdering_OrderDetail">
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="1" />
+          <End Role="OnlineOrdering" Type="Self.OnlineOrdering" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderDetail">
+              <PropertyRef Name="OrderDetailId" />
+            </Principal>
+            <Dependent Role="OnlineOrdering">
+              <PropertyRef Name="OrderDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetail_PriceList">
+          <End Role="PriceList" Type="Self.PriceList" Multiplicity="1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceList">
+              <PropertyRef Name="PriceId" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="PriceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetail_SpicinessLevel">
+          <End Role="SpicinessLevel" Type="Self.SpicinessLevel" Multiplicity="1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SpicinessLevel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="SpicinessLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Staff_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Staff_StaffPosition">
+          <End Role="StaffPosition" Type="Self.StaffPosition" Multiplicity="1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="StaffPosition">
+              <PropertyRef Name="StaffPositionId" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkingRoster_Staff">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="WorkingRoster" Type="Self.WorkingRoster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="StaffId" />
+            </Principal>
+            <Dependent Role="WorkingRoster">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StaffPosition_StaffType">
+          <End Role="StaffType" Type="Self.StaffType" Multiplicity="1" />
+          <End Role="StaffPosition" Type="Self.StaffPosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StaffType">
+              <PropertyRef Name="StaffTypeId" />
+            </Principal>
+            <Dependent Role="StaffPosition">
+              <PropertyRef Name="StaffTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkingRoster_StaffPosition">
+          <End Role="StaffPosition" Type="Self.StaffPosition" Multiplicity="1" />
+          <End Role="WorkingRoster" Type="Self.WorkingRoster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StaffPosition">
+              <PropertyRef Name="StaffPositionId" />
+            </Principal>
+            <Dependent Role="WorkingRoster">
+              <PropertyRef Name="PositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkingRoster_WorkingShift">
+          <End Role="WorkingShift" Type="Self.WorkingShift" Multiplicity="1" />
+          <End Role="WorkingRoster" Type="Self.WorkingRoster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkingShift">
+              <PropertyRef Name="ShiftId" />
+            </Principal>
+            <Dependent Role="WorkingRoster">
+              <PropertyRef Name="ShiftId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="YumYumEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Dates" EntityType="Self.Date" />
+          <EntitySet Name="FoodItems" EntityType="Self.FoodItem" />
+          <EntitySet Name="FoodTypes" EntityType="Self.FoodType" />
+          <EntitySet Name="LogInDetails" EntityType="Self.LogInDetail" />
+          <EntitySet Name="MeatTypes" EntityType="Self.MeatType" />
+          <EntitySet Name="OnlineBookings" EntityType="Self.OnlineBooking" />
+          <EntitySet Name="OnlineOrderings" EntityType="Self.OnlineOrdering" />
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
+          <EntitySet Name="People" EntityType="Self.Person" />
+          <EntitySet Name="PriceLists" EntityType="Self.PriceList" />
+          <EntitySet Name="SpicinessLevels" EntityType="Self.SpicinessLevel" />
+          <EntitySet Name="Staffs" EntityType="Self.Staff" />
+          <EntitySet Name="StaffPositions" EntityType="Self.StaffPosition" />
+          <EntitySet Name="StaffTypes" EntityType="Self.StaffType" />
+          <EntitySet Name="WorkingRosters" EntityType="Self.WorkingRoster" />
+          <EntitySet Name="WorkingShifts" EntityType="Self.WorkingShift" />
+          <AssociationSet Name="FK_Customer_Person" Association="Self.FK_Customer_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineOrdering_Customer" Association="Self.FK_OnlineOrdering_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="OnlineOrdering" EntitySet="OnlineOrderings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkingShift_WorkingDate" Association="Self.FK_WorkingShift_WorkingDate">
+            <End Role="Date" EntitySet="Dates" />
+            <End Role="WorkingShift" EntitySet="WorkingShifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetail_FoodItem" Association="Self.FK_OrderDetail_FoodItem">
+            <End Role="FoodItem" EntitySet="FoodItems" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PriceList_FoodType" Association="Self.FK_PriceList_FoodType">
+            <End Role="FoodType" EntitySet="FoodTypes" />
+            <End Role="PriceList" EntitySet="PriceLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineBooking_LogInDetail" Association="Self.FK_OnlineBooking_LogInDetail">
+            <End Role="LogInDetail" EntitySet="LogInDetails" />
+            <End Role="OnlineBooking" EntitySet="OnlineBookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineOrdering_LogInDetail" Association="Self.FK_OnlineOrdering_LogInDetail">
+            <End Role="LogInDetail" EntitySet="LogInDetails" />
+            <End Role="OnlineOrdering" EntitySet="OnlineOrderings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_LogInDetail1" Association="Self.FK_Person_LogInDetail1">
+            <End Role="LogInDetail" EntitySet="LogInDetails" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PriceList_MeatType" Association="Self.FK_PriceList_MeatType">
+            <End Role="MeatType" EntitySet="MeatTypes" />
+            <End Role="PriceList" EntitySet="PriceLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineBooking_Person" Association="Self.FK_OnlineBooking_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="OnlineBooking" EntitySet="OnlineBookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineOrdering_OrderDetail" Association="Self.FK_OnlineOrdering_OrderDetail">
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+            <End Role="OnlineOrdering" EntitySet="OnlineOrderings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetail_PriceList" Association="Self.FK_OrderDetail_PriceList">
+            <End Role="PriceList" EntitySet="PriceLists" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetail_SpicinessLevel" Association="Self.FK_OrderDetail_SpicinessLevel">
+            <End Role="SpicinessLevel" EntitySet="SpicinessLevels" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Staff_Person" Association="Self.FK_Staff_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Staff" EntitySet="Staffs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Staff_StaffPosition" Association="Self.FK_Staff_StaffPosition">
+            <End Role="StaffPosition" EntitySet="StaffPositions" />
+            <End Role="Staff" EntitySet="Staffs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkingRoster_Staff" Association="Self.FK_WorkingRoster_Staff">
+            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="WorkingRoster" EntitySet="WorkingRosters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StaffPosition_StaffType" Association="Self.FK_StaffPosition_StaffType">
+            <End Role="StaffType" EntitySet="StaffTypes" />
+            <End Role="StaffPosition" EntitySet="StaffPositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkingRoster_StaffPosition" Association="Self.FK_WorkingRoster_StaffPosition">
+            <End Role="StaffPosition" EntitySet="StaffPositions" />
+            <End Role="WorkingRoster" EntitySet="WorkingRosters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkingRoster_WorkingShift" Association="Self.FK_WorkingRoster_WorkingShift">
+            <End Role="WorkingShift" EntitySet="WorkingShifts" />
+            <End Role="WorkingRoster" EntitySet="WorkingRosters" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="YumYumModelStoreContainer" CdmEntityContainer="YumYumEntities">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="YumYumModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dates">
+            <EntityTypeMapping TypeName="YumYumModel.Date">
+              <MappingFragment StoreEntitySet="Date">
+                <ScalarProperty Name="DateId" ColumnName="DateId" />
+                <ScalarProperty Name="Date1" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FoodItems">
+            <EntityTypeMapping TypeName="YumYumModel.FoodItem">
+              <MappingFragment StoreEntitySet="FoodItem">
+                <ScalarProperty Name="FoodItemId" ColumnName="FoodItemId" />
+                <ScalarProperty Name="FoodName" ColumnName="FoodName" />
+                <ScalarProperty Name="FoodDetail" ColumnName="FoodDetail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FoodTypes">
+            <EntityTypeMapping TypeName="YumYumModel.FoodType">
+              <MappingFragment StoreEntitySet="FoodType">
+                <ScalarProperty Name="FoodTypeId" ColumnName="FoodTypeId" />
+                <ScalarProperty Name="FoodType1" ColumnName="FoodType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogInDetails">
+            <EntityTypeMapping TypeName="YumYumModel.LogInDetail">
+              <MappingFragment StoreEntitySet="LogInDetail">
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LoginHistory" ColumnName="LoginHistory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MeatTypes">
+            <EntityTypeMapping TypeName="YumYumModel.MeatType">
+              <MappingFragment StoreEntitySet="MeatType">
+                <ScalarProperty Name="MeatId" ColumnName="MeatId" />
+                <ScalarProperty Name="MeatType1" ColumnName="MeatType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OnlineBookings">
+            <EntityTypeMapping TypeName="YumYumModel.OnlineBooking">
+              <MappingFragment StoreEntitySet="OnlineBooking">
+                <ScalarProperty Name="OnlineBookingId" ColumnName="OnlineBookingId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+                <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
+                <ScalarProperty Name="BookingTime" ColumnName="BookingTime" />
+                <ScalarProperty Name="NumberOfPeople" ColumnName="NumberOfPeople" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OnlineOrderings">
+            <EntityTypeMapping TypeName="YumYumModel.OnlineOrdering">
+              <MappingFragment StoreEntitySet="OnlineOrdering">
+                <ScalarProperty Name="OnlineOrderId" ColumnName="OnlineOrderId" />
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="OrderDetailId" ColumnName="OrderDetailId" />
+                <ScalarProperty Name="OrderedDate" ColumnName="OrderedDate" />
+                <ScalarProperty Name="EstimatedPickupTime" ColumnName="EstimatedPickupTime" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="YumYumModel.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetail">
+                <ScalarProperty Name="OrderDetailId" ColumnName="OrderDetailId" />
+                <ScalarProperty Name="FoodItemId" ColumnName="FoodItemId" />
+                <ScalarProperty Name="MeatTypeId" ColumnName="MeatTypeId" />
+                <ScalarProperty Name="SpicinessLevelId" ColumnName="SpicinessLevelId" />
+                <ScalarProperty Name="PriceId" ColumnName="PriceId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="YumYumModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PriceLists">
+            <EntityTypeMapping TypeName="YumYumModel.PriceList">
+              <MappingFragment StoreEntitySet="PriceList">
+                <ScalarProperty Name="PriceId" ColumnName="PriceId" />
+                <ScalarProperty Name="FoodTypeId" ColumnName="FoodTypeId" />
+                <ScalarProperty Name="MeatId" ColumnName="MeatId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SpicinessLevels">
+            <EntityTypeMapping TypeName="YumYumModel.SpicinessLevel">
+              <MappingFragment StoreEntitySet="SpicinessLevel">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SpicinessLevel1" ColumnName="SpicinessLevel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Staffs">
+            <EntityTypeMapping TypeName="YumYumModel.Staff">
+              <MappingFragment StoreEntitySet="Staff">
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="HourlyRate" ColumnName="HourlyRate" />
+                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StaffPositions">
+            <EntityTypeMapping TypeName="YumYumModel.StaffPosition">
+              <MappingFragment StoreEntitySet="StaffPosition">
+                <ScalarProperty Name="StaffPositionId" ColumnName="StaffPositionId" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="StaffTypeId" ColumnName="StaffTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StaffTypes">
+            <EntityTypeMapping TypeName="YumYumModel.StaffType">
+              <MappingFragment StoreEntitySet="StaffType">
+                <ScalarProperty Name="StaffTypeId" ColumnName="StaffTypeId" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkingRosters">
+            <EntityTypeMapping TypeName="YumYumModel.WorkingRoster">
+              <MappingFragment StoreEntitySet="WorkingRoster">
+                <ScalarProperty Name="RosterId" ColumnName="RosterId" />
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="PositionId" ColumnName="PositionId" />
+                <ScalarProperty Name="ShiftId" ColumnName="ShiftId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkingShifts">
+            <EntityTypeMapping TypeName="YumYumModel.WorkingShift">
+              <MappingFragment StoreEntitySet="WorkingShift">
+                <ScalarProperty Name="ShiftId" ColumnName="ShiftId" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="FinishTime" ColumnName="FinishTime" />
+                <ScalarProperty Name="TotalHour" ColumnName="TotalHour" />
+                <ScalarProperty Name="DateId" ColumnName="DateId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

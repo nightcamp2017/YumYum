@@ -45,11 +45,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -174,40 +174,81 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Customer.cs">
+      <DependentUpon>YumYum.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Date.cs">
+      <DependentUpon>YumYum.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FoodItem.cs">
+      <DependentUpon>YumYum.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FoodType.cs">
+      <DependentUpon>YumYum.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="LogInDetail.cs">
+      <DependentUpon>YumYum.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MeatType.cs">
+      <DependentUpon>YumYum.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PersonModel.cs" />
+    <Compile Include="OnlineBooking.cs">
+      <DependentUpon>YumYum.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineOrdering.cs">
+      <DependentUpon>YumYum.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderDetail.cs">
+      <DependentUpon>YumYum.tt</DependentUpon>
+    </Compile>
     <Compile Include="Person.cs">
-      <DependentUpon>YumYumModel.tt</DependentUpon>
+      <DependentUpon>YumYum.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PriceList.cs">
+      <DependentUpon>YumYum.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpicinessLevel.cs">
+      <DependentUpon>YumYum.tt</DependentUpon>
+    </Compile>
     <Compile Include="Staff.cs">
-      <DependentUpon>YumYumModel.tt</DependentUpon>
+      <DependentUpon>YumYum.tt</DependentUpon>
     </Compile>
     <Compile Include="StaffPosition.cs">
-      <DependentUpon>YumYumModel.tt</DependentUpon>
+      <DependentUpon>YumYum.tt</DependentUpon>
     </Compile>
     <Compile Include="StaffType.cs">
-      <DependentUpon>YumYumModel.tt</DependentUpon>
+      <DependentUpon>YumYum.tt</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="YumYumModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>YumYumModel.Context.tt</DependentUpon>
+    <Compile Include="WorkingRoster.cs">
+      <DependentUpon>YumYum.tt</DependentUpon>
     </Compile>
-    <Compile Include="YumYumModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>YumYumModel.tt</DependentUpon>
+    <Compile Include="WorkingShift.cs">
+      <DependentUpon>YumYum.tt</DependentUpon>
     </Compile>
-    <Compile Include="YumYumModel.Designer.cs">
+    <Compile Include="YumYum.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>YumYumModel.edmx</DependentUpon>
+      <DependentUpon>YumYum.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="YumYum.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>YumYum.tt</DependentUpon>
+    </Compile>
+    <Compile Include="YumYum.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>YumYum.edmx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -220,16 +261,17 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="SQL\script210317_ver1.sql" />
-    <Content Include="YumYumModel.Context.tt">
+    <Content Include="YumYum.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>YumYumModel.edmx</DependentUpon>
-      <LastGenOutput>YumYumModel.Context.cs</LastGenOutput>
+      <DependentUpon>YumYum.edmx</DependentUpon>
+      <LastGenOutput>YumYum.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="YumYumModel.tt">
+    <Content Include="YumYum.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>YumYumModel.edmx</DependentUpon>
-      <LastGenOutput>YumYumModel.cs</LastGenOutput>
+      <DependentUpon>YumYum.edmx</DependentUpon>
+      <LastGenOutput>YumYum.cs</LastGenOutput>
     </Content>
+    <Content Include="packages.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -244,13 +286,6 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="SQL\DBPopulate.sql" />
     <Content Include="SQL\YumYum.sql" />
-    <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
@@ -278,12 +313,21 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <EntityDeploy Include="YumYumModel.edmx">
+    <EntityDeploy Include="YumYum.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>YumYumModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>YumYum.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="YumYumModel.edmx.diagram">
-      <DependentUpon>YumYumModel.edmx</DependentUpon>
+    <Content Include="Web.Config" />
+    <Content Include="Views\Home\LoginPage.cshtml" />
+    <Content Include="Views\Home\CreateUser.cshtml" />
+    <None Include="Web.Debug.Config">
+      <DependentUpon>Web.Config</DependentUpon>
+    </None>
+    <None Include="Web.Release.Config">
+      <DependentUpon>Web.Config</DependentUpon>
+    </None>
+    <Content Include="YumYum.edmx.diagram">
+      <DependentUpon>YumYum.edmx</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>
