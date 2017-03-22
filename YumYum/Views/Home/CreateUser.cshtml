@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "CreateUser";
+
+}
+
+<h2>Create New User</h2>
+<style>
+    body {
+        background-color: lightseagreen;
+    }
+
+    .container {
+        width: 500px;
+        clear: both;
+    }
+
+        .container input {
+            width: 100%;
+            clear: both;
+        }
+
+    .label-color {
+    }
+</style>
+<div id ="register" class="container register-div">
+    <form id="register-form">
+        <label>First Name <input type="text" checked name="FirstName" /></label>
+        <br />
+        <label>Last Name <input type="text" checked name="LastName" /></label>
+        <br />
+        <label>Address 1 <input type="text" checked name="Address1" /></label>
+        <br />
+        <label>Address 2 <input type="text" name="Address2" /></label>
+        <br />
+        <label>Phone Number <input type="text" name="Phone" /></label>
+        <br />
+        <label>Mobile Number <input type="text" checked name="Mobile" /><//></label>
+        <br />
+        <label>Email Address <input type="email" checked name="Email" /></ /></label>
+        <br />
+        <label>Date of Birth<input type="date" checked name="DOB" /><//></label>
+
+
+    </form>
+    <input type="submit" value="Register" name="register-button" />
+</div>
+
+<div class="register-success-div">
+
+</div>
+
+<script>
+    $(".register-success-div".hide());
+    $("input[name='register-button']").click(function(){
+        var registerData= $("#register-form").serializeArray();
+        $.ajax({
+            url:'Home/CreateUser',
+            type:'post',
+            data: { id: 0, personDetail: registerData },
+            success: function (result) {
+                document.getElementById("register").innerHTML = "Congratulations! You are successfully register"
+
+             
+            }
+            
+            
+
+         })
+    })
+</script>

@@ -12,28 +12,22 @@ namespace YumYum
     using System;
     using System.Collections.Generic;
     
-    public partial class Person
+    public partial class PriceList
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Person()
+        public PriceList()
         {
-            this.OnlineBookings = new HashSet<OnlineBooking>();
+            this.OrderDetails = new HashSet<OrderDetail>();
         }
     
-        public int PersonId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Address1 { get; set; }
-        public string Address2 { get; set; }
-        public string PhoneNumber { get; set; }
-        public string MobileNumber { get; set; }
-        public string EmailAddress { get; set; }
-        public Nullable<System.DateTime> DateOfBirth { get; set; }
+        public int PriceId { get; set; }
+        public int FoodTypeId { get; set; }
+        public int MeatId { get; set; }
+        public decimal Price { get; set; }
     
-        public virtual Customer Customer { get; set; }
-        public virtual LogInDetail LogInDetail { get; set; }
+        public virtual FoodType FoodType { get; set; }
+        public virtual MeatType MeatType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OnlineBooking> OnlineBookings { get; set; }
-        public virtual Staff Staff { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

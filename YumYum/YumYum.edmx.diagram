@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="15c582b9702f40819e3e715faf9ec56b" Name="Diagram1">
+        <EntityTypeShape EntityType="YumYumModel.Customer" Width="1.5" PointX="5.25" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="YumYumModel.Date" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="YumYumModel.FoodItem" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="YumYumModel.FoodType" Width="1.5" PointX="0.75" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="YumYumModel.LogInDetail" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="YumYumModel.MeatType" Width="1.5" PointX="0.75" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="YumYumModel.OnlineBooking" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="YumYumModel.OnlineOrdering" Width="1.5" PointX="7.5" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="YumYumModel.OrderDetail" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="YumYumModel.Person" Width="1.5" PointX="3" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="YumYumModel.PriceList" Width="1.5" PointX="3" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="YumYumModel.SpicinessLevel" Width="1.5" PointX="3" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="YumYumModel.Staff" Width="1.5" PointX="5.25" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="YumYumModel.StaffPosition" Width="1.5" PointX="3" PointY="24.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="YumYumModel.StaffType" Width="1.5" PointX="0.75" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="YumYumModel.WorkingRoster" Width="1.5" PointX="7.5" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="YumYumModel.WorkingShift" Width="1.5" PointX="5.25" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="YumYumModel.FK_Customer_Person" ManuallyRouted="false" />
+        <AssociationConnector Association="YumYumModel.FK_OnlineOrdering_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="YumYumModel.FK_WorkingShift_WorkingDate" ManuallyRouted="false" />
+        <AssociationConnector Association="YumYumModel.FK_OrderDetail_FoodItem" ManuallyRouted="false" />
+        <AssociationConnector Association="YumYumModel.FK_PriceList_FoodType" ManuallyRouted="false" />
+        <AssociationConnector Association="YumYumModel.FK_OnlineBooking_LogInDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="YumYumModel.FK_OnlineOrdering_LogInDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="YumYumModel.FK_Person_LogInDetail1" ManuallyRouted="false" />
+        <AssociationConnector Association="YumYumModel.FK_PriceList_MeatType" ManuallyRouted="false" />
+        <AssociationConnector Association="YumYumModel.FK_OnlineBooking_Person" ManuallyRouted="false" />
+        <AssociationConnector Association="YumYumModel.FK_OnlineOrdering_OrderDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="YumYumModel.FK_OrderDetail_PriceList" ManuallyRouted="false" />
+        <AssociationConnector Association="YumYumModel.FK_OrderDetail_SpicinessLevel" ManuallyRouted="false" />
+        <AssociationConnector Association="YumYumModel.FK_Staff_Person" ManuallyRouted="false" />
+        <AssociationConnector Association="YumYumModel.FK_Staff_StaffPosition" ManuallyRouted="false" />
+        <AssociationConnector Association="YumYumModel.FK_WorkingRoster_Staff" ManuallyRouted="false" />
+        <AssociationConnector Association="YumYumModel.FK_StaffPosition_StaffType" ManuallyRouted="false" />
+        <AssociationConnector Association="YumYumModel.FK_WorkingRoster_StaffPosition" ManuallyRouted="false" />
+        <AssociationConnector Association="YumYumModel.FK_WorkingRoster_WorkingShift" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

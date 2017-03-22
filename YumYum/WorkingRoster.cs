@@ -12,21 +12,15 @@ namespace YumYum
     using System;
     using System.Collections.Generic;
     
-    public partial class Staff
+    public partial class WorkingRoster
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Staff()
-        {
-            this.WorkingRosters = new HashSet<WorkingRoster>();
-        }
-    
+        public int RosterId { get; set; }
         public int StaffId { get; set; }
-        public decimal HourlyRate { get; set; }
-        public System.DateTime HireDate { get; set; }
+        public int PositionId { get; set; }
+        public int ShiftId { get; set; }
     
-        public virtual Person Person { get; set; }
+        public virtual Staff Staff { get; set; }
         public virtual StaffPosition StaffPosition { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WorkingRoster> WorkingRosters { get; set; }
+        public virtual WorkingShift WorkingShift { get; set; }
     }
 }
