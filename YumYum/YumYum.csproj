@@ -220,6 +220,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="SQL\script210317_ver1.sql" />
+    <Content Include="SQL\script220317_ver1.sql" />
     <Content Include="YumYumModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>YumYumModel.edmx</DependentUpon>
