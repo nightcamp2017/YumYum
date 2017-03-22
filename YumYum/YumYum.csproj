@@ -261,7 +261,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="SQL\script210317_ver1.sql" />
-    <Content Include="YumYumModel.Context.tt">
+    <Content Include="YumYum.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>YumYum.edmx</DependentUpon>
       <LastGenOutput>YumYum.Context.cs</LastGenOutput>
