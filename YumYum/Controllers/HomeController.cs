@@ -23,7 +23,10 @@ namespace YumYum.Controllers
 
             return View();
         }
-
+        public ActionResult sf()
+        {
+            return View();
+        }
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
