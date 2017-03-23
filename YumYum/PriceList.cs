@@ -21,12 +21,10 @@ namespace YumYum
         }
     
         public int PriceId { get; set; }
-        public int FoodTypeId { get; set; }
-        public int MeatId { get; set; }
-        public decimal Price { get; set; }
+        public Nullable<int> FoodTypeId { get; set; }
+        public Nullable<int> MeatId { get; set; }
+        public Nullable<decimal> Price { get; set; }
     
-        public virtual FoodType FoodType { get; set; }
-        public virtual MeatType MeatType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }

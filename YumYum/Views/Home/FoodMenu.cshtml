@@ -1,0 +1,22 @@
+﻿@model List<YumYum.Models.FoodList>
+@{
+    ViewBag.Title = "FoodMenu";
+
+}
+
+<h2>Food Menu</h2>
+
+<h3 class="text-center">Food Category</h3>
+<div id="food-cate" class="text-center" style="font-size: 18px;">
+
+    @foreach (var c in Model)
+    {
+
+
+        <p style="visibility: hidden" , id="cateId">
+            @c.FoodCateId
+            <a style="visibility:visible; color:darkgoldenrod" , id="selectCate" href='/Home/GetFoodCate?cateId=@c.FoodCateId'>@c.FoodCate</a>
+        </p>
+    }
+</div>
+

@@ -1,0 +1,39 @@
+﻿@model List<YumYum.Models.FoodList>
+
+@{
+    ViewBag.Title = "GetFoodCate";
+}
+
+<h2>GetFoodCate</h2>
+<div id="food-list">
+    <table class="table table-bordered">
+        <tr>
+            <th>&nbsp;</th>
+            <th>Item</th>
+            <th>Food Detail</th>
+        </tr>
+        
+            @foreach (var f in Model)
+            {
+                <tr>
+                <td id="foodItemId">@f.FoodId</td>
+                <td>@f.FoodName</td>
+                <td>@f.FoodDetail</td>
+                </tr>
+            }
+        
+    </table>
+    <button class="btn-primary" id="back-btn">Back</button>
+    
+</div>
+<script>
+    $("#back-btn").click(function () {
+        console.log('button')
+        window.location.href = '/Home/FoodMenu';
+        //$.ajax({
+        //    url: '/Home/FoodMenu',
+        //    type: 'post',
+        //    success: function () { console.log('success') }
+        //})
+    })
+</script>
