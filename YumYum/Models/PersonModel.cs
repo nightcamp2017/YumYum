@@ -15,5 +15,7 @@ namespace YumYum.Models
         public string Phone { get; set; }
         public string Mobile { get; set; }
         public string Email { get; set; }
+
+        public DateTime DOB { get; set; }
     }
 }
