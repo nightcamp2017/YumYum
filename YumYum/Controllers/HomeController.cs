@@ -34,53 +34,114 @@ namespace YumYum.Controllers
             return View();
         }
 
-        //public ActionResult CreateUser() {
+        public ActionResult CreateUser()
+        {
 
-        //    return View();
+            //    return View();
+            return View();
+        }
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View(new PersonModel());
+        }
+        [HttpPost]
+        public ActionResult Register(PersonModel personDetail, int id = 0)
+        {
+            //Using Jquery for this Action. Could have used Razor too (which ight be easier)
+            //Check this website: http://stackoverflow.com/questions/20333021/asp-net-mvc-how-to-pass-data-from-view-to-controller
+            // for more info on how to do with razor.
+            var newRegister = new Person
+            {
+                FirstName = personDetail.FirstName,
+                LastName = personDetail.LastName,
+                Address1 = personDetail.Address1,
+                Address2 = personDetail.Address2,
+                PhoneNumber = personDetail.Phone,
+                MobileNumber = personDetail.Mobile,
+                EmailAddress = personDetail.Email,
 
+                // DateOfBirth = personDetail.DOB.Now
+
+            };
+            if (newRegister.PersonId == 0)
+            { newRegister.PersonId = 1; }
+            db.People.Add(newRegister);
+
+            db.SaveChanges();
+
+
+
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult LoginPage()
+        {
         //}
         //[HttpPost]
         //public ActionResult Register( PersonModel personDetail, int id = 0)
         //{
 
-        //    return View();
+            //    return View();
+            //}
+            //public ActionResult LoginPage()
+            //{
+
+            //    return View();
+            //}
+
+            ////This action log user in
+            //public ActionResult LoginFunction(string username, string password)
+            //{
+
+            //    var LoginDetail = db.LogInDetails.Select(x=> ( new Login{ username = x.Username, password = x.Password })).ToList();
+            //    foreach (var x in LoginDetail)
+            //    {
+            //        if (username == x.username)
+            //        {
+            //            //if password matched
+            //            if (password == x.password)
+            //            {
+            //                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            //            }
+            //            //if password do not match
+            //            else { return Json(new { success = false }, JsonRequestBehavior.AllowGet); }
+            //        }
+            //        //If user is not found
+            //        else { return Json(new { success = false }, JsonRequestBehavior.AllowGet); }
+            //    }
+            //    return View();
+
+
+            //}
+
+            //public ActionResult UserDashboard() {
+            //    return View();
+
+            //This action log user in
+        public ActionResult LoginFunction(string username, string password)
+        {
+
+            var LoginDetail = db.LogInDetails.Select(x => (new Login { username = x.Username, password = x.Password })).ToList();
+            foreach (var x in LoginDetail)
+            {
+                if (username == x.username)
+                {
+                    //if password matched
+                    if (password == x.password)
+                    {
+                        return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+                    }
+                    //if password do not match
+                    else { return Json(new { success = false }, JsonRequestBehavior.AllowGet); }
+                }
+                //If user is not found
+                else { return Json(new { success = false }, JsonRequestBehavior.AllowGet); }
+            }
+            return View();
+
+
         //}
-        //public ActionResult LoginPage()
-        //{
 
-        //    return View();
-        //}
-
-        ////This action log user in
-        //public ActionResult LoginFunction(string username, string password)
-        //{
-
-        //    var LoginDetail = db.LogInDetails.Select(x=> ( new Login{ username = x.Username, password = x.Password })).ToList();
-        //    foreach (var x in LoginDetail)
-        //    {
-        //        if (username == x.username)
-        //        {
-        //            //if password matched
-        //            if (password == x.password)
-        //            {
-        //                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
-        //            }
-        //            //if password do not match
-        //            else { return Json(new { success = false }, JsonRequestBehavior.AllowGet); }
-        //        }
-        //        //If user is not found
-        //        else { return Json(new { success = false }, JsonRequestBehavior.AllowGet); }
-        //    }
-        //    return View();
-
-
-        //}
-
-        //public ActionResult UserDashboard() {
-        //    return View();
-
-        //}
-       
         public ActionResult FoodMenu()
         {
             var foodCategory = db.FoodTypes.Select(x => new FoodList
@@ -93,18 +154,22 @@ namespace YumYum.Controllers
             //FoodList model = new FoodList();
             //model.FoodType = foodCategory;
             //model.FoodItem = foodList;
-             
-             return View("FoodMenu",foodCategory);
+
+            return View("FoodMenu", foodCategory);
 
         }
 
+        public ActionResult UserDashboard()
+        {
+            return View();
+
         public ActionResult GetFoodCate(int cateId)
         {
-           // Join FoodType and FoodItem tables using FoodTypeId
+            // Join FoodType and FoodItem tables using FoodTypeId
             var foodjoin =
                 from f in db.FoodTypes
                 join it in db.FoodItems on f.FoodTypeId equals it.FoodTypeId
-                select new 
+                select new
                 {
                     cate = it.FoodTypeId,
                     id = it.FoodItemId,
@@ -118,9 +183,9 @@ namespace YumYum.Controllers
             {
                 FoodId = x.id,
                 FoodName = x.name,
-                FoodDetail =x.detail
+                FoodDetail = x.detail
             }).ToList();
-       
+
             return View(eachCate);
         }
     }
