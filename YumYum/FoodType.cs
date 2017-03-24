@@ -17,13 +17,13 @@ namespace YumYum
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public FoodType()
         {
-            this.PriceLists = new HashSet<PriceList>();
+            this.FoodItems = new HashSet<FoodItem>();
         }
     
         public int FoodTypeId { get; set; }
         public string FoodType1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PriceList> PriceLists { get; set; }
+        public virtual ICollection<FoodItem> FoodItems { get; set; }
     }
 }

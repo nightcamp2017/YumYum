@@ -23,8 +23,10 @@ namespace YumYum
         public int FoodItemId { get; set; }
         public string FoodName { get; set; }
         public string FoodDetail { get; set; }
+        public int FoodTypeId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual FoodType FoodType { get; set; }
     }
 }
