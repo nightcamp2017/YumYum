@@ -64,8 +64,9 @@ namespace YumYum.Controllers
                 // DateOfBirth = personDetail.DOB.Now
 
             };
-            if (newRegister.PersonId == 0)
-            { newRegister.PersonId = 1; }
+            //if (newRegister.PersonId == 0) you dont need this as it is set by ef due to this column iin the table haviing identity turned on
+
+            //{ newRegister.PersonId = 1; }
             db.People.Add(newRegister);
 
             db.SaveChanges();
@@ -74,8 +75,8 @@ namespace YumYum.Controllers
 
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult LoginPage()
-        {
+        //public ActionResult LoginPage()
+        //{
         //}
         //[HttpPost]
         //public ActionResult Register( PersonModel personDetail, int id = 0)
@@ -140,7 +141,7 @@ namespace YumYum.Controllers
             return View();
 
 
-        //}
+        }
 
         public ActionResult FoodMenu()
         {
@@ -162,6 +163,7 @@ namespace YumYum.Controllers
         public ActionResult UserDashboard()
         {
             return View();
+        }
 
         public ActionResult GetFoodCate(int cateId)
         {

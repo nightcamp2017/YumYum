@@ -27,7 +27,10 @@ namespace YumYum
     
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Date> Dates { get; set; }
+        public virtual DbSet<FoodItem> FoodItems { get; set; }
+        public virtual DbSet<FoodType> FoodTypes { get; set; }
         public virtual DbSet<LogInDetail> LogInDetails { get; set; }
+        public virtual DbSet<MeatType> MeatTypes { get; set; }
         public virtual DbSet<OnlineBooking> OnlineBookings { get; set; }
         public virtual DbSet<OnlineOrdering> OnlineOrderings { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
@@ -39,8 +42,5 @@ namespace YumYum
         public virtual DbSet<StaffType> StaffTypes { get; set; }
         public virtual DbSet<WorkingRoster> WorkingRosters { get; set; }
         public virtual DbSet<WorkingShift> WorkingShifts { get; set; }
-        public virtual DbSet<FoodItem> FoodItems { get; set; }
-        public virtual DbSet<FoodType> FoodTypes { get; set; }
-        public virtual DbSet<MeatType> MeatTypes { get; set; }
     }
 }

@@ -27,11 +27,11 @@ namespace YumYum
         public int PriceId { get; set; }
         public int Quantity { get; set; }
     
+        public virtual FoodItem FoodItem { get; set; }
+        public virtual MeatType MeatType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OnlineOrdering> OnlineOrderings { get; set; }
         public virtual PriceList PriceList { get; set; }
         public virtual SpicinessLevel SpicinessLevel { get; set; }
-        public virtual FoodItem FoodItem { get; set; }
-        public virtual MeatType MeatType { get; set; }
     }
 }
