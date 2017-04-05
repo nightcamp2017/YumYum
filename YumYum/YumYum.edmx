@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="YumYumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="YumYumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="CustomerId" />
@@ -481,7 +481,8 @@
             <End Role="WorkingShift" EntitySet="WorkingShift" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="YumYumModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -502,6 +503,25 @@
           <Property Name="Date1" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="WorkingShifts" Relationship="Self.FK_WorkingShift_WorkingDate" FromRole="Date" ToRole="WorkingShift" />
         </EntityType>
+        <EntityType Name="FoodItem">
+          <Key>
+            <PropertyRef Name="FoodItemId" />
+          </Key>
+          <Property Name="FoodItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FoodName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FoodDetail" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FoodTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FoodType" Relationship="Self.FK_FoodItem_FoodType" FromRole="FoodItem" ToRole="FoodType" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetail_FoodItem" FromRole="FoodItem" ToRole="OrderDetail" />
+        </EntityType>
+        <EntityType Name="FoodType">
+          <Key>
+            <PropertyRef Name="FoodTypeId" />
+          </Key>
+          <Property Name="FoodTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FoodType1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="FoodItems" Relationship="Self.FK_FoodItem_FoodType" FromRole="FoodType" ToRole="FoodItem" />
+        </EntityType>
         <EntityType Name="LogInDetail">
           <Key>
             <PropertyRef Name="LoginId" />
@@ -513,6 +533,14 @@
           <NavigationProperty Name="OnlineBookings" Relationship="Self.FK_OnlineBooking_LogInDetail" FromRole="LogInDetail" ToRole="OnlineBooking" />
           <NavigationProperty Name="OnlineOrderings" Relationship="Self.FK_OnlineOrdering_LogInDetail" FromRole="LogInDetail" ToRole="OnlineOrdering" />
           <NavigationProperty Name="Person" Relationship="Self.FK_Person_LogInDetail1" FromRole="LogInDetail" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="MeatType">
+          <Key>
+            <PropertyRef Name="MeatId" />
+          </Key>
+          <Property Name="MeatId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MeatType1" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetail_MeatType" FromRole="MeatType" ToRole="OrderDetail" />
         </EntityType>
         <EntityType Name="OnlineBooking">
           <Key>
@@ -553,11 +581,11 @@
           <Property Name="SpicinessLevelId" Type="Int32" Nullable="false" />
           <Property Name="PriceId" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FoodItem" Relationship="Self.FK_OrderDetail_FoodItem" FromRole="OrderDetail" ToRole="FoodItem" />
+          <NavigationProperty Name="MeatType" Relationship="Self.FK_OrderDetail_MeatType" FromRole="OrderDetail" ToRole="MeatType" />
           <NavigationProperty Name="OnlineOrderings" Relationship="Self.FK_OnlineOrdering_OrderDetail" FromRole="OrderDetail" ToRole="OnlineOrdering" />
           <NavigationProperty Name="PriceList" Relationship="Self.FK_OrderDetail_PriceList" FromRole="OrderDetail" ToRole="PriceList" />
           <NavigationProperty Name="SpicinessLevel" Relationship="Self.FK_OrderDetail_SpicinessLevel" FromRole="OrderDetail" ToRole="SpicinessLevel" />
-          <NavigationProperty Name="FoodItem" Relationship="YumYumModel.FK_OrderDetail_FoodItem" FromRole="OrderDetail" ToRole="FoodItem" />
-          <NavigationProperty Name="MeatType" Relationship="YumYumModel.FK_OrderDetail_MeatType" FromRole="OrderDetail" ToRole="MeatType" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
@@ -581,7 +609,7 @@
           <Key>
             <PropertyRef Name="PriceId" />
           </Key>
-          <Property Name="PriceId" Type="Int32" Nullable="false" />
+          <Property Name="PriceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FoodTypeId" Type="Int32" />
           <Property Name="MeatId" Type="Int32" />
           <Property Name="Price" Type="Decimal" Precision="4" Scale="2" />
@@ -591,7 +619,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SpicinessLevel1" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetail_SpicinessLevel" FromRole="SpicinessLevel" ToRole="OrderDetail" />
         </EntityType>
@@ -685,6 +713,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FoodItem_FoodType">
+          <End Role="FoodType" Type="Self.FoodType" Multiplicity="1" />
+          <End Role="FoodItem" Type="Self.FoodItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FoodType">
+              <PropertyRef Name="FoodTypeId" />
+            </Principal>
+            <Dependent Role="FoodItem">
+              <PropertyRef Name="FoodTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetail_FoodItem">
+          <End Role="FoodItem" Type="Self.FoodItem" Multiplicity="1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FoodItem">
+              <PropertyRef Name="FoodItemId" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="FoodItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_OnlineBooking_LogInDetail">
           <End Role="LogInDetail" Type="Self.LogInDetail" Multiplicity="0..1" />
           <End Role="OnlineBooking" Type="Self.OnlineBooking" Multiplicity="*" />
@@ -718,6 +770,18 @@
             </Principal>
             <Dependent Role="Person">
               <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetail_MeatType">
+          <End Role="MeatType" Type="Self.MeatType" Multiplicity="1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MeatType">
+              <PropertyRef Name="MeatId" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="MeatTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -844,7 +908,10 @@
         <EntityContainer Name="YumYumEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Dates" EntityType="Self.Date" />
+          <EntitySet Name="FoodItems" EntityType="Self.FoodItem" />
+          <EntitySet Name="FoodTypes" EntityType="Self.FoodType" />
           <EntitySet Name="LogInDetails" EntityType="Self.LogInDetail" />
+          <EntitySet Name="MeatTypes" EntityType="Self.MeatType" />
           <EntitySet Name="OnlineBookings" EntityType="Self.OnlineBooking" />
           <EntitySet Name="OnlineOrderings" EntityType="Self.OnlineOrdering" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
@@ -868,6 +935,14 @@
             <End Role="Date" EntitySet="Dates" />
             <End Role="WorkingShift" EntitySet="WorkingShifts" />
           </AssociationSet>
+          <AssociationSet Name="FK_FoodItem_FoodType" Association="Self.FK_FoodItem_FoodType">
+            <End Role="FoodType" EntitySet="FoodTypes" />
+            <End Role="FoodItem" EntitySet="FoodItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetail_FoodItem" Association="Self.FK_OrderDetail_FoodItem">
+            <End Role="FoodItem" EntitySet="FoodItems" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_OnlineBooking_LogInDetail" Association="Self.FK_OnlineBooking_LogInDetail">
             <End Role="LogInDetail" EntitySet="LogInDetails" />
             <End Role="OnlineBooking" EntitySet="OnlineBookings" />
@@ -879,6 +954,10 @@
           <AssociationSet Name="FK_Person_LogInDetail1" Association="Self.FK_Person_LogInDetail1">
             <End Role="LogInDetail" EntitySet="LogInDetails" />
             <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetail_MeatType" Association="Self.FK_OrderDetail_MeatType">
+            <End Role="MeatType" EntitySet="MeatTypes" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_OnlineBooking_Person" Association="Self.FK_OnlineBooking_Person">
             <End Role="Person" EntitySet="People" />
@@ -920,85 +999,7 @@
             <End Role="WorkingShift" EntitySet="WorkingShifts" />
             <End Role="WorkingRoster" EntitySet="WorkingRosters" />
           </AssociationSet>
-          <EntitySet Name="FoodItems" EntityType="YumYumModel.FoodItem" />
-          <AssociationSet Name="FK_OrderDetail_FoodItem" Association="YumYumModel.FK_OrderDetail_FoodItem">
-            <End Role="FoodItem" EntitySet="FoodItems" />
-            <End Role="OrderDetail" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <EntitySet Name="FoodTypes" EntityType="YumYumModel.FoodType" />
-          <EntitySet Name="MeatTypes" EntityType="YumYumModel.MeatType" />
-          <AssociationSet Name="FK_FoodItem_FoodType" Association="YumYumModel.FK_FoodItem_FoodType">
-            <End Role="FoodType" EntitySet="FoodTypes" />
-            <End Role="FoodItem" EntitySet="FoodItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderDetail_MeatType" Association="YumYumModel.FK_OrderDetail_MeatType">
-            <End Role="MeatType" EntitySet="MeatTypes" />
-            <End Role="OrderDetail" EntitySet="OrderDetails" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="FoodItem">
-          <Key>
-            <PropertyRef Name="FoodItemId" />
-          </Key>
-          <Property Name="FoodItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FoodName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FoodDetail" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="FoodTypeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="OrderDetails" Relationship="YumYumModel.FK_OrderDetail_FoodItem" FromRole="FoodItem" ToRole="OrderDetail" />
-          <NavigationProperty Name="FoodType" Relationship="YumYumModel.FK_FoodItem_FoodType" FromRole="FoodItem" ToRole="FoodType" />
-        </EntityType>
-        <Association Name="FK_OrderDetail_FoodItem">
-          <End Type="YumYumModel.FoodItem" Role="FoodItem" Multiplicity="1" />
-          <End Type="YumYumModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FoodItem">
-              <PropertyRef Name="FoodItemId" />
-            </Principal>
-            <Dependent Role="OrderDetail">
-              <PropertyRef Name="FoodItemId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="FoodType">
-          <Key>
-            <PropertyRef Name="FoodTypeId" />
-          </Key>
-          <Property Name="FoodTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FoodType1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="FoodItems" Relationship="YumYumModel.FK_FoodItem_FoodType" FromRole="FoodType" ToRole="FoodItem" />
-        </EntityType>
-        <EntityType Name="MeatType">
-          <Key>
-            <PropertyRef Name="MeatId" />
-          </Key>
-          <Property Name="MeatId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MeatType1" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="OrderDetails" Relationship="YumYumModel.FK_OrderDetail_MeatType" FromRole="MeatType" ToRole="OrderDetail" />
-        </EntityType>
-        <Association Name="FK_FoodItem_FoodType">
-          <End Type="YumYumModel.FoodType" Role="FoodType" Multiplicity="1" />
-          <End Type="YumYumModel.FoodItem" Role="FoodItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FoodType">
-              <PropertyRef Name="FoodTypeId" />
-            </Principal>
-            <Dependent Role="FoodItem">
-              <PropertyRef Name="FoodTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderDetail_MeatType">
-          <End Type="YumYumModel.MeatType" Role="MeatType" Multiplicity="1" />
-          <End Type="YumYumModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MeatType">
-              <PropertyRef Name="MeatId" />
-            </Principal>
-            <Dependent Role="OrderDetail">
-              <PropertyRef Name="MeatTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1021,6 +1022,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="FoodItems">
+            <EntityTypeMapping TypeName="YumYumModel.FoodItem">
+              <MappingFragment StoreEntitySet="FoodItem">
+                <ScalarProperty Name="FoodItemId" ColumnName="FoodItemId" />
+                <ScalarProperty Name="FoodName" ColumnName="FoodName" />
+                <ScalarProperty Name="FoodDetail" ColumnName="FoodDetail" />
+                <ScalarProperty Name="FoodTypeId" ColumnName="FoodTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FoodTypes">
+            <EntityTypeMapping TypeName="YumYumModel.FoodType">
+              <MappingFragment StoreEntitySet="FoodType">
+                <ScalarProperty Name="FoodTypeId" ColumnName="FoodTypeId" />
+                <ScalarProperty Name="FoodType1" ColumnName="FoodType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="LogInDetails">
             <EntityTypeMapping TypeName="YumYumModel.LogInDetail">
               <MappingFragment StoreEntitySet="LogInDetail">
@@ -1028,6 +1047,14 @@
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="LoginHistory" ColumnName="LoginHistory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MeatTypes">
+            <EntityTypeMapping TypeName="YumYumModel.MeatType">
+              <MappingFragment StoreEntitySet="MeatType">
+                <ScalarProperty Name="MeatId" ColumnName="MeatId" />
+                <ScalarProperty Name="MeatType1" ColumnName="MeatType" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1146,32 +1173,6 @@
                 <ScalarProperty Name="FinishTime" ColumnName="FinishTime" />
                 <ScalarProperty Name="TotalHour" ColumnName="TotalHour" />
                 <ScalarProperty Name="DateId" ColumnName="DateId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FoodItems">
-            <EntityTypeMapping TypeName="YumYumModel.FoodItem">
-              <MappingFragment StoreEntitySet="FoodItem">
-                <ScalarProperty Name="FoodTypeId" ColumnName="FoodTypeId" />
-                <ScalarProperty Name="FoodDetail" ColumnName="FoodDetail" />
-                <ScalarProperty Name="FoodName" ColumnName="FoodName" />
-                <ScalarProperty Name="FoodItemId" ColumnName="FoodItemId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FoodTypes">
-            <EntityTypeMapping TypeName="YumYumModel.FoodType">
-              <MappingFragment StoreEntitySet="FoodType">
-                <ScalarProperty Name="FoodType1" ColumnName="FoodType" />
-                <ScalarProperty Name="FoodTypeId" ColumnName="FoodTypeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MeatTypes">
-            <EntityTypeMapping TypeName="YumYumModel.MeatType">
-              <MappingFragment StoreEntitySet="MeatType">
-                <ScalarProperty Name="MeatType1" ColumnName="MeatType" />
-                <ScalarProperty Name="MeatId" ColumnName="MeatId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

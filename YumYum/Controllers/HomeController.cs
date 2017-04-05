@@ -11,9 +11,7 @@ namespace YumYum.Controllers
     public class HomeController : Controller
     {
         YumYumEntities db = new YumYumEntities();
-        FoodList addedFoodObj = new FoodList();
-        List<FoodList> addedFoodList = new List<FoodList>() ;
-        
+
         public ActionResult Index()
         {
             return View();
@@ -36,64 +34,135 @@ namespace YumYum.Controllers
             return View();
         }
 
-        //public ActionResult CreateUser() {
+        public ActionResult CreateUser()
+        {
 
-        //    return View();
+            //    return View();
+            return View();
+        }
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View(new PersonModel());
+        }
+        [HttpPost]
+        public ActionResult Register(PersonModel personDetail, int id = 0)
+        {
+            //Using Jquery for this Action. Could have used Razor too (which ight be easier)
+            //Check this website: http://stackoverflow.com/questions/20333021/asp-net-mvc-how-to-pass-data-from-view-to-controller
+            // for more info on how to do with razor.
+            var newRegister = new Person
+            {
+                FirstName = personDetail.FirstName,
+                LastName = personDetail.LastName,
+                Address1 = personDetail.Address1,
+                Address2 = personDetail.Address2,
+                PhoneNumber = personDetail.Phone,
+                MobileNumber = personDetail.Mobile,
+                EmailAddress = personDetail.Email,
 
+                // DateOfBirth = personDetail.DOB.Now
+
+            };
+            //if (newRegister.PersonId == 0) you dont need this as it is set by ef due to this column iin the table haviing identity turned on
+
+            //{ newRegister.PersonId = 1; }
+            db.People.Add(newRegister);
+
+            db.SaveChanges();
+
+
+
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
+        //public ActionResult LoginPage()
+        //{
         //}
         //[HttpPost]
         //public ActionResult Register( PersonModel personDetail, int id = 0)
         //{
 
-        //    return View();
-        //}
-        //public ActionResult LoginPage()
-        //{
+            //    return View();
+            //}
+            //public ActionResult LoginPage()
+            //{
 
-        //    return View();
-        //}
+            //    return View();
+            //}
 
-        ////This action log user in
-        //public ActionResult LoginFunction(string username, string password)
-        //{
+            ////This action log user in
+            //public ActionResult LoginFunction(string username, string password)
+            //{
 
-        //    var LoginDetail = db.LogInDetails.Select(x=> ( new Login{ username = x.Username, password = x.Password })).ToList();
-        //    foreach (var x in LoginDetail)
-        //    {
-        //        if (username == x.username)
-        //        {
-        //            //if password matched
-        //            if (password == x.password)
-        //            {
-        //                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
-        //            }
-        //            //if password do not match
-        //            else { return Json(new { success = false }, JsonRequestBehavior.AllowGet); }
-        //        }
-        //        //If user is not found
-        //        else { return Json(new { success = false }, JsonRequestBehavior.AllowGet); }
-        //    }
-        //    return View();
+            //    var LoginDetail = db.LogInDetails.Select(x=> ( new Login{ username = x.Username, password = x.Password })).ToList();
+            //    foreach (var x in LoginDetail)
+            //    {
+            //        if (username == x.username)
+            //        {
+            //            //if password matched
+            //            if (password == x.password)
+            //            {
+            //                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            //            }
+            //            //if password do not match
+            //            else { return Json(new { success = false }, JsonRequestBehavior.AllowGet); }
+            //        }
+            //        //If user is not found
+            //        else { return Json(new { success = false }, JsonRequestBehavior.AllowGet); }
+            //    }
+            //    return View();
 
 
-        //}
+            //}
 
-        //public ActionResult UserDashboard() {
-        //    return View();
+            //public ActionResult UserDashboard() {
+            //    return View();
 
-        //}
-       
+            //This action log user in
+        public ActionResult LoginFunction(string username, string password)
+        {
+
+            var LoginDetail = db.LogInDetails.Select(x => (new Login { username = x.Username, password = x.Password })).ToList();
+            foreach (var x in LoginDetail)
+            {
+                if (username == x.username)
+                {
+                    //if password matched
+                    if (password == x.password)
+                    {
+                        return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+                    }
+                    //if password do not match
+                    else { return Json(new { success = false }, JsonRequestBehavior.AllowGet); }
+                }
+                //If user is not found
+                else { return Json(new { success = false }, JsonRequestBehavior.AllowGet); }
+            }
+            return View();
+
+
+        }
+
         public ActionResult FoodMenu()
         {
-            //desplay food category
             var foodCategory = db.FoodTypes.Select(x => new FoodList
             {
                 FoodCateId = x.FoodTypeId,
                 FoodCate = x.FoodType1
             }).ToList();
-             
-             return View("FoodMenu",foodCategory);
 
+
+            //FoodList model = new FoodList();
+            //model.FoodType = foodCategory;
+            //model.FoodItem = foodList;
+
+            return View("FoodMenu", foodCategory);
+
+        }
+
+        public ActionResult UserDashboard()
+        {
+            return View();
         }
 
         public ActionResult GetFoodCate(int cateId)
@@ -112,65 +181,14 @@ namespace YumYum.Controllers
                 };
             //Search food list in each category
             var eachCateTemp = foodjoin.Where(x => x.cate == cateId).ToList();
-           
             var eachCate = eachCateTemp.Select(x => new FoodList
             {
-                FoodCateId = x.cate,
                 FoodId = x.id,
                 FoodName = x.name,
-                FoodDetail =x.detail
+                FoodDetail = x.detail
             }).ToList();
 
             return View(eachCate);
-        }
-        public ActionResult AddOrder(int itemId, int meatId)
-        {
-            //Take customers' selection of food and meat type
-            var selectedMeat = db.MeatTypes.Find(meatId);
-            var selectedFood = db.FoodItems.Find(itemId);
-
-            addedFoodObj.FoodCateId = selectedFood.FoodTypeId;
-            addedFoodObj.FoodId = selectedFood.FoodItemId;
-            addedFoodObj.FoodName = selectedFood.FoodName;
-            addedFoodObj.MeatId = selectedMeat.MeatId;
-            addedFoodObj.MeatOpt= selectedMeat.MeatType1.Trim();
-
-            //set Pricing depending on category and meat type
-            if (meatId == 1 || meatId == 2 || meatId == 3 || meatId == 5 && addedFoodObj.FoodCateId ==1 || addedFoodObj.FoodCateId ==3 || addedFoodObj.FoodCateId == 4)
-            {
-                addedFoodObj.PriceId = 1;
-            }
-            else
-            {
-                addedFoodObj.PriceId = 2;
-
-                if (meatId == 1 || meatId == 2 || meatId == 3 || meatId == 5 && addedFoodObj.FoodCateId == 2 || addedFoodObj.FoodCateId == 5)
-                {
-                    addedFoodObj.PriceId = 3;
-                }
-                else
-                {
-                    addedFoodObj.PriceId = 4;
-                }
-            }
-            //addedFoodList.Add(addedFoodObj);
-
-            return Json(addedFoodObj, JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult SaveOrder(FoodList model)
-        {
-            //save order and update database
-            var saveOrder = new OrderDetail();
-            saveOrder.FoodItemId = model.FoodId;
-            saveOrder.MeatTypeId = model.MeatId;
-            saveOrder.SpicinessLevelId = model.HotId;
-            saveOrder.Quantity = model.Quantity;
-            saveOrder.PriceId = model.PriceId;
-            var addedOrderDetail = db.OrderDetails.Add(saveOrder);
-            db.SaveChanges();
-
-            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
     }
 }

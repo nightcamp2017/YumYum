@@ -9,9 +9,9 @@
     <br />*@
 <div id="login-div">
     <form id="login-form">
-        <label>User Name <input type="text" required name="login" /></label>
+        <label>User Name <input type="text" required name="login" id="username" /></label>
         <br />
-        <label>Password <input type="text" required name="login" /></label>
+        <label>Password <input type="text" required name="login" id="password"/></label>
     </form>
     <input type="submit" value="Login" id="login-button" />
     <br />
@@ -23,11 +23,18 @@
 
     $("#login-button").click(function () {
         var LoginData = $("form").serializeArray();
+        myForm = document.getElementById("login - form");
+        var form = new FormData(myForm);
         console.log(LoginData)
         $.ajax({
             url: '/Home/LoginFunction',
             type: 'post',
-            data: LoginData,
+            data: {
+                username: $("#username").val(),
+                password: $("#password").val()
+               
+
+            },
             @*This will have to divert to another page based on the login detail*@
             success: function (result) {
 

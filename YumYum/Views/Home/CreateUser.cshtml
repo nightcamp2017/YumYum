@@ -1,4 +1,6 @@
-﻿
+﻿<%: Html.EditorForModel() %>
+
+
 @{
     ViewBag.Title = "CreateUser";
 
@@ -25,21 +27,21 @@
 </style>
 <div id ="register" class="container register-div">
     <form id="register-form">
-        <label>First Name <input type="text" checked name="FirstName" /></label>
+        <label>First Name <input type="text" checked name="FirstName" id="FirstName" /></label>
         <br />
-        <label>Last Name <input type="text" checked name="LastName" /></label>
+        <label>Last Name <input type="text" checked name="LastName" id="LastName" /></label>
         <br />
-        <label>Address 1 <input type="text" checked name="Address1" /></label>
+        <label>Address 1 <input type="text" checked name="Address1" id="Address1" /></label>
         <br />
-        <label>Address 2 <input type="text" name="Address2" /></label>
+        <label>Address 2 <input type="text" name="Address2" id="Address2" /></label>
         <br />
-        <label>Phone Number <input type="text" name="Phone" /></label>
+        <label>Phone Number <input type="text" name="Phone" id="Phone" /></label>
         <br />
-        <label>Mobile Number <input type="text" checked name="Mobile" /><//></label>
+        <label>Mobile Number <input type="text" checked name="Mobile" id="Mobile" /><//></label>
         <br />
-        <label>Email Address <input type="email" checked name="Email" /></ /></label>
+        <label>Email Address <input type="email" checked name="Email" id="Email" /></ /></label>
         <br />
-        <label>Date of Birth<input type="date" checked name="DOB" /><//></label>
+        <label>Date of Birth<input type="date" checked name="DOB" id="DOB" /><//></label>
 
 
     </form>
@@ -47,20 +49,36 @@
 </div>
 
 <div class="register-success-div">
-
+    
 </div>
 
 <script>
-    $(".register-success-div".hide());
-    $("input[name='register-button']").click(function(){
-        var registerData= $("#register-form").serializeArray();
+    //$(".register-success-div".hide());
+    $("input[name='register-button']").click(function () {
+        console.log('register button clicked')
+        myForm = document.getElementById("register-form");
+        var form = new FormData(myForm);
+        var registerData = $("#register-form").serializeArray();
+        console.log(registerData)
         $.ajax({
-            url:'Home/CreateUser',
-            type:'post',
-            data: { id: 0, personDetail: registerData },
+            url: "/Home/Register",
+           // contentType: 'application/json',
+            type: 'post',
+           // dataType:"json",
+            data: {
+                FirstName: $("#FirstName").val(),
+                LastName: $("#LastName").val(),
+                Address1: $("#Address1").val(),
+                Address2: $("#Address2").val(),
+                Phone: $("#Phone").val(),
+                Mobile: $("#Mobile").val(),
+                Email: $("#Email").val(),
+                DOB: $("#DOB").val()
+
+               
+            },
             success: function (result) {
                 document.getElementById("register").innerHTML = "Congratulations! You are successfully register"
-
              
             }
             
