@@ -4,19 +4,33 @@
 
 }
 
-<h2>Food Menu</h2>
+<body>
+    <style>
+        body {
+            background-image: url('../images/bg-body.jpg');
+            background-size:cover;
+            background-repeat:no-repeat;
+        }
+        div.transbox {
+  margin: 15px;
+  background-color: #ffffff;
+  border: 1px solid black;
+  opacity: 0.8;
+  filter: alpha(opacity=60); /* For IE8 and earlier */
+}
 
-<h3 class="text-center">Food Category</h3>
-<div id="food-cate" class="text-center" style="font-size: 18px;">
-
-    @foreach (var c in Model)
-    {
-
-
-        <p style="visibility: hidden" , id="cateId">
-            @c.FoodCateId
-            <a style="visibility:visible; color:darkgoldenrod" , id="selectCate" href='/Home/GetFoodCate?cateId=@c.FoodCateId'>@c.FoodCate</a>
-        </p>
-    }
-</div>
-
+div.transbox p {
+  margin: 5%;
+  color: #000000;
+}
+    </style> 
+    <div id="food-cate" class="text-center transbox" style="font-size: 25px;">
+        <h2 class="text-center">Food Category</h2>
+        @foreach (var c in Model)
+        {
+            <p style="visibility: hidden" , id="cateId">
+                <a style="visibility:visible; color:saddlebrown" , id="selectCate" href='/Home/GetFoodCate?cateId=@c.FoodCateId'>@c.FoodCate</a>
+            </p>
+        }
+    </div>
+</body>

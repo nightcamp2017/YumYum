@@ -1,4 +1,4 @@
-﻿@*@{
+﻿@{
     ViewBag.Title = "Home Page";
 }
 
@@ -8,17 +8,25 @@
 <script>
     $(document).ready(function () {
         $.ajax({
-            url: '/Home/FoodMenu',
+            url: '/Home/FoodMenu/GetFoodCate',
             type: 'get',
             success: function (html) {
                 $("#WebMenu").html(html)
 
-                $("#selectCate").click(function () {
-                    var id = $(this).find(cateId).html();
+
+                $("#add-btn").click(function () {
+                    var id = $(this).parents("tr").find("#foodItemId").html();
+                    console.log(id);
                     $.ajax({
-                        url: '/Home/GetFoodCate',
-                        type: 'post',
-                        data: {id:cateId}
+                        url: '/Home/AddOrder',
+                        type: 'Post',
+                        data: { id: itemId },
+                        success: function (result) {
+                            $("#craigs-model").modal("show");
+                            $("#FoodId").val(result.FoodId).show();
+                            $("#FoodName").val(result.FoodName);
+                            $("#myDropdown").show();
+                        }
                     })
 
                     //$.ajax({
@@ -33,4 +41,4 @@
 </script>
 <script>
     
-</script>*@
+</script>

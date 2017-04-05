@@ -4,36 +4,165 @@
     ViewBag.Title = "GetFoodCate";
 }
 
-<h2>GetFoodCate</h2>
-<div id="food-list">
-    <table class="table table-bordered">
-        <tr>
-            <th>&nbsp;</th>
-            <th>Item</th>
-            <th>Food Detail</th>
-        </tr>
+<body>
+    <style>
+        /*transparent box & background*/
+        body {
+            background-image: url('../images/bg-body.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        div.transbox {
+            margin: 15px;
+            background-color: #ffffff;
+            border: 1px solid black;
+            opacity: 0.8;
+            filter: alpha(opacity=60); /* For IE8 and earlier */
+        }
+
+            div.transbox p {
+                margin: 5%;
+                color: #000000;
+            }
+    </style>
+    
+    <div id="food-list" class="transbox">
         
+        <h2>Food Items</h2>
+        @* Items display *@
+        <table class="table table-bordered">
+            <tr>
+                <th style="visibility:hidden"></th>
+                <th style="visibility:hidden"></th>
+                <th>Item</th>
+                <th>Food Detail</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+
+            </tr>
+
             @foreach (var f in Model)
             {
                 <tr>
-                <td id="foodItemId">@f.FoodId</td>
-                <td>@f.FoodName</td>
-                <td>@f.FoodDetail</td>
+                    <td class="cate-id" style="visibility:hidden">@f.FoodCateId</td>
+                    <td class="id-data" style="visibility:hidden">@f.FoodId</td>
+                    <td>@f.FoodName</td>
+                    <td>@f.FoodDetail</td>
+                    
+                    @*This is a clickable dropdown code
+                     <td><div class="dropdown">
+                    <button onclick="myFunction()" class="dropbtn">Meat Option</button>
+                    <div id="myDropdown" class="dropdown-content">
+                    <a href='/Home/AddOrder?meatId=1&itemId=@f.FoodId' id="Chicken">Chicken</a>
+                    <a href='/Home/AddOrder?meatId=2&itemId=@f.FoodId' id="Beef">Beef</a>
+                    <a href='/Home/AddOrder?meatId=3&itemId=@f.FoodId' id="Pork">Pork</a>
+                    <a href='/Home/AddOrder?meatId=5&itemId=@f.FoodId' id="Vege">Vegetarian</a>
+                    <a href='/Home/AddOrder?meatId=4&itemId=@f.FoodId' id="Seafood">Seafood</a>
+                    </div>
+                    </div>
+                    <script>
+                            function myFunction() {
+                             document.getElementById("myDropdown").classList.toggle("show");
+                                }
+                                window.onclick = function (event) {
+                                    if (!event.target.matches('.dropbtn')) {
+
+                                        var dropdowns = document.getElementsByClassName("dropdown-content");
+                                        var i;
+                                        for (i = 0; i < dropdowns.length; i++) {
+                                            var openDropdown = dropdowns[i];
+                                            if (openDropdown.classList.contains('show')) {
+                                                openDropdown.classList.remove('show');
+                                            }
+                                        }
+                                    }
+                                }
+                    </script>*@
+                      
+                    @*</td>*@
+                    <td>
+                        <form> @*Dropdown Lists for meat option*@
+                            <div class="form-group">
+                                <label for="meatOpt">
+                                    Meat Option:
+                                </label>
+                                <select class="form-control select-meat-dropdown">
+                                    <option>Plase Select One</option>
+                                    <option value="1">Chicken</option>
+                                    <option value="2">Beef</option>
+                                    <option value="3">Pork</option>
+                                    <option value="4">Seafood</option>
+                                    <option value="5">Vegetarian</option>
+                                </select>
+                            </div> 
+                        </form>
+                    </td>
+                    <td><button class="btn-primary id-add-btn">Add</button></td>
                 </tr>
             }
-        
-    </table>
+
+        </table>
+
+    </div>
     <button class="btn-primary" id="back-btn">Back</button>
-    
-</div>
-<script>
-    $("#back-btn").click(function () {
-        console.log('button')
-        window.location.href = '/Home/FoodMenu';
-        //$.ajax({
-        //    url: '/Home/FoodMenu',
-        //    type: 'post',
-        //    success: function () { console.log('success') }
-        //})
-    })
-</script>
+    <script>
+        ////////////////////////////*All buttons*////////////////////////////////
+        $('documnet').ready(function(){
+        $("#back-btn").click(function () {
+            console.log('button')
+            window.location.href = '/Home/FoodMenu';
+        })
+
+        
+        
+        $(".id-add-btn").on('click', function (event) {
+
+                //$(".select-meat-dropdown").on('change.bs.select', function (event) {
+                    var itemId = $(this).parents("tr").find(".id-data").html();
+                    console.log(itemId);
+                    var self = $(this)
+                    var meatId = self.parents("tr").find(".select-meat-dropdown").val();
+                    //closest('select').find("option").filter(':selected:last').val();
+                    //var meatId = $filter("option:selected:last", self).val();
+                    console.log(meatId);
+                var hotLevel = $('#hotOpt label.active input').val();
+                $.ajax({
+                    url: '/Home/AddOrder',
+                    type: 'Post',
+                    data: { itemId: itemId, meatId: meatId},
+                    success: function (result) {
+                        console.log(result)
+                        $("#craigs-model").modal("show");
+                        $("#FoodCate").val(result.FoodCateId);
+                        $("#FoodId").val(result.FoodId);
+                        $("#FoodName").val(result.FoodName);
+                        $("#MeatOpt").val(result.MeatOpt);
+                        $("#hotOpt").val(hotLevel);
+                        $("Quantity").val(result.Quantity);
+                    }
+                })
+            })
+        
+        
+
+        $(".save-changes-btn").click(function () {
+            var data = $("#add-order-form").serializeArray();
+            console.log(data);
+            $.ajax({
+                url: '/Home/SaveOrder',
+                type: 'post',
+                data: data,
+                success: function (result) {
+                    console.log(result);
+                    if (result.success === true) {
+                        $("#craigs-model").modal("hide");
+                        window.location.reload(true)
+                    }
+                }
+            })
+        })
+        
+        });
+    </script>
+</body>

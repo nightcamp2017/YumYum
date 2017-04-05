@@ -7,7 +7,35 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <style> 
+        @*Dropdown style*@       
+        .dropbtn:hover, .dropbtn:focus {
+         background-color: #3e8e41;}
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
 
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+        .dropdown a:hover {background-color: #f1f1f1}
+
+        .show {display:block;}
+</style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -31,6 +59,66 @@
         </div>
     </div>
     <div class="container body-content">
+        @*Popup window (Craig's model)*@
+        <div class="modal fade" id="craigs-model" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Edit Student Profile</h4>
+                    </div>
+                    <div class="modal-body">
+                            <form class ="form-horizontal" id="add-order-form">
+                                <p>
+                                    <label class="invisible" id="FC">Food Category</label>
+                                    <input class="invisible" type="text" id="FoodCate" name="FoodCateId" readonly />
+                                </p>
+                                <p>
+                                    <label>Food Id: </label>
+                                    <input type="text" id="FoodId" name="FoodId" readonly />
+                                </p>
+                                <p>
+                                    <label id="FN">Food Name:</label>
+                                    <input type="text" id="FoodName" name="FoodName" readonly />
+                                </p>
+                                <p>
+                                    <label id="MeatLabel">Meat Option:</label>
+                                    <input type="text" id="MeatOpt" name="MeatOpt" readonly />
+                                </p>
+                                <p> @*Radio buttons for hot options*@
+                                    <label for="hotOpt">
+                                        Spiciness Option:
+                                    </label>
+                                    <div class="btn-group" id="hotOpt">
+                                            <label class="radio-inline"><input type="radio" name="SpicyLevel"  value="1">Mild</label>
+                                            <label class="radio-inline"><input type="radio" name="SpicyLevel" value="2">Medium</label>
+                                            <label class="radio-inline"><input type="radio" name="SpicyLevel" value="3">Hot</label>
+                                            <label class="radio-inline"><input type="radio" name="SpicyLevel" value="4">Thai Hot</label>
+                                        @*<select class="form-control select-hot-btn" id="hotOpt">
+                                             <option id="empty">Plase Select One</option>
+                                             <option id="mild" value="1">Mild</option>
+                                             <option id="medium" value="2">Medium</option>
+                                             <option id="hot" value="3">Hot</option>
+                                             <option id="thai-Hot" value="4">Thai Hot</option>
+                                         </select>*@
+                                    </div>
+                                </p>
+                        
+                                <p>
+                                    <label id="QuanLabel">Quantity:</label>
+                                    <input type="text" id="Quantity" name="Quantity" />
+                                </p>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="save-changes-btn btn btn-primary">Save changes</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
         @RenderBody()
         <hr />
         <footer>
